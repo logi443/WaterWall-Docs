@@ -243,7 +243,7 @@ ssl_cert_issue() {
 
 	# get needed port here
 	echo -e "${cyan}============================================${rest}"
-	echo -en "${green}Please choose which port you want to use (default is port 80): ${rest}"
+	echo -en "${green}Please choose which port you want to use [Default: 80]: ${rest}"
 	read -r WebPort
 	WebPort=${WebPort:-80}
 	if [[ ${WebPort} -gt 65535 || ${WebPort} -lt 1 ]]; then
