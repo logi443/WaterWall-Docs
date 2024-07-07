@@ -1375,7 +1375,7 @@ EOF
             "name": "sslclient",
             "type": "OpenSSLClient",
             "settings": {
-                "sni": "mydomain.ir",
+                "sni": "$domain",
                 "verify": true,
                 "alpn": "h2"
             },
