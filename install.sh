@@ -393,7 +393,7 @@ simple_direct() {
 		read -r remote_address
 		echo -en "${green}Enter the remote port: ${rest}"
 		read -r remote_port
-		echo -en "${green}Do you want to Enable PreConnect (yes/no) [Default: yes] : ${rest}"
+		echo -en "${green}Do you want to Enable PreConnect (yes/no) [${yellow}Default: yes${green}] : ${rest}"
 		read -r PreConnect
 
 		install_waterwall
@@ -449,11 +449,16 @@ EOF
 	# Function to create simple multiport to port config
 	create_simple_multiport_to_port() {
 		echo -e "${cyan}============================${rest}"
-		read -p "Enter the starting local port (greater than 23): " start_port
-		read -p "Enter the ending local port (less than 65535): " end_port
-		read -p "Enter the remote address: " remote_address
-		read -p "Enter the remote port: " remote_port
-		read -p "Do you want to Enable PreConnect (yes/no) [Default: yes] : " PreConnect
+		echo -en "${green}Enter the starting local port (greater than 23): ${rest}"
+        read -r start_port
+		echo -en "${green}Enter the ending local port (less than 65535): ${rest}"
+        read -r end_port
+		echo -en "${green}Enter the remote address: ${rest}"
+        read -r remote_address
+		echo -en "${green}Enter the remote port: ${rest}"
+        read -r remote_port
+		echo -en "${green}Do you want to Enable PreConnect (yes/no) [${yellow}Default: yes${green}] : ${rest}"
+        read -r PreConnect
 
 		install_waterwall
 
@@ -508,10 +513,14 @@ EOF
 	# Function to create multiport to multiport config
 	create_simple_multiport() {
 		echo -e "${cyan}============================${rest}"
-		read -p "Enter the starting local port (greater than 23): " start_port
-		read -p "Enter the ending local port (less than 65535): " end_port
-		read -p "Enter the remote address: " remote_address
-		read -p "Do you want to Enable PreConnect (yes/no) [Default: yes] : " PreConnect
+		echo -en "${green}Enter the starting local port (greater than 23): ${rest}"
+        read -r start_port
+		echo -en "${green}Enter the ending local port (less than 65535): ${rest}"
+        read -r end_port
+		echo -en "${green}Enter the remote address: ${rest}"
+        read -r remote_address
+		echo -en "${green}Do you want to Enable PreConnect (yes/no) [${yellow}Default: yes${green}] : ${rest}"
+        read -r PreConnect
 
 		install_waterwall
 
