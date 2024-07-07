@@ -825,7 +825,7 @@ EOF
 		http2=${http2:-yes}
 
 		if [ "$http2" == "yes" ]; then
-			output="pbserver"
+			output="h2server"
 		else
 			output="output"
 		fi
@@ -874,14 +874,14 @@ EOF
 				cat <<EOF
 
         {
-            "name": "pbserver",
-            "type": "ProtoBufServer",
-            "settings": {},
-            "next": "h2server"
-        },
-        {
             "name": "h2server",
             "type": "Http2Server",
+            "settings": {},
+            "next": "pbserver"
+        },
+        {
+            "name": "pbserver",
+            "type": "ProtoBufServer",
             "settings": {},
             "next": "output"
         },
