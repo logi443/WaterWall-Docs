@@ -903,7 +903,7 @@ EOF
 EOF
 		)
 		echo "$json" >/root/Waterwall/config.json
-		echo -e "${yellow}You should get [SSL CERTIFICATE] for your domain in main Menu${rest}"
+		echo -e "${yellow}If you haven't already, you should get [SSL CERTIFICATE] for your domain in the main menu.${rest}"
 	}
 
 	# Function to create tls multi port iran
@@ -1139,7 +1139,7 @@ EOF
 EOF
 		)
 		echo "$json" >/root/Waterwall/config.json
-		echo -e "${yellow}You should get [SSL CERTIFICATE] for your domain in main Menu${rest}"
+		echo -e "${yellow}If you haven't already, you should get [SSL CERTIFICATE] for your domain in the main menu.${rest}"
 	}
 
 	echo -e "${yellow}      *******************************${rest}"
@@ -2308,7 +2308,7 @@ reverse_cdn() {
 EOF
 		)
 		echo "$json" >/root/Waterwall/config.json
-		echo -e "${blue}1) ${yellow}You should get [SSL CERTIFICATE] for your domain in main Menu${rest}"
+		echo -e "${blue}1) ${yellow}If you haven't already, you should get [SSL CERTIFICATE] for your domain in the main menu.${rest}"
 		echo -e "${blue}2) ${yellow}Enable [grpc] in CloudFlare Network Setting${rest}"
 		echo -e "${blue}3) ${yellow}Enable Minimum TLS Version [TlS 1.2] in CloudFlare Edge Certificate Setting${rest}"
 		echo -e "${blue}4) ${yellow}Enable [Proxy status] in CloudFlare Dns Record Setting${rest}"
@@ -2627,7 +2627,7 @@ EOF
 EOF
 		)
 		echo "$json" >/root/Waterwall/config.json
-		echo -e "${blue}1) ${yellow}You should get [SSL CERTIFICATE] for your domain in main Menu${rest}"
+		echo -e "${blue}1) ${yellow}If you haven't already, you should get [SSL CERTIFICATE] for your domain in the main menu.${rest}"
 		echo -e "${blue}2) ${yellow}Enable [grpc] in CloudFlare Network Setting${rest}"
 		echo -e "${blue}3) ${yellow}Enable Minimum TLS Version [TlS 1.2] in CloudFlare Edge Certificate Setting${rest}"
 		echo -e "${blue}4) ${yellow}Enable [Proxy status] in CloudFlare Dns Record Setting${rest}"
@@ -2764,7 +2764,7 @@ EOF
 EOF
 		)
 		echo "$json" >/root/Waterwall/config.json
-		echo -e "${blue}1) ${yellow}You should get [SSL CERTIFICATE] for your domain in main Menu${rest}"
+		echo -e "${blue}1) ${yellow}If you haven't already, you should get [SSL CERTIFICATE] for your domain in the main menu.${rest}"
 		echo -e "${blue}2) ${yellow}Enable [grpc] in CloudFlare Network Setting${rest}"
 		echo -e "${blue}3) ${yellow}Enable Minimum TLS Version [TlS 1.2] in CloudFlare Edge Certificate Setting${rest}"
 		echo -e "${blue}4) ${yellow}Enable [Proxy status] in CloudFlare Dns Record Setting${rest}"
