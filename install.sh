@@ -922,10 +922,7 @@ EOF
 		echo -en "${green}Do you want to Enable Http2 ? (yes/no) [${yellow}Default: yes${green}] : ${rest}"
 		read -r http2
 		http2=${http2:-yes}
-		if [ "$http2" == "yes" ]; then
-			echo -en "${green}Enter the Connection port: ${rest}"
-			read -r connection_port
-		else
+		if [ "$http2" == "no" ]; then
 			echo -en "${green}Do you want to Enable PreConnect ? (yes/no) [${yellow}Default: yes${green}]: ${rest}"
 			read -r PreConnect
 			PreConnect=${PreConnect:-yes}
@@ -984,7 +981,7 @@ EOF
             "type": "Http2Client",
             "settings": {
                 "host": "$domain",
-                "port": $connection_port,
+                "port": $remote_port,
                 "path": "/",
                 "content-type": "application/grpc"
             },
@@ -1298,8 +1295,6 @@ EOF
 		echo -e "${cyan}============================${rest}"
 		echo -en "${green}Enter Your Domain: ${rest}"
 		read -r domain
-		echo -en "${green}Enter the Connection port: ${rest}"
-		read -r connection_port
 		echo -en "${green}Enter the remote address: ${rest}"
 		read -r remote_address
 		echo -en "${green}Enter the remote port: ${rest}"
@@ -1364,7 +1359,7 @@ EOF
             "type": "Http2Client",
             "settings": {
                 "host": "$domain",
-                "port": $connection_port,
+                "port": $remote_port,
                 "path": "/",
                 "content-type": "application/grpc"
             },
