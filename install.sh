@@ -243,7 +243,7 @@ ssl_cert_issue() {
 
 	# get needed port here
 	echo -e "${cyan}============================================${rest}"
-	echo -en "${green}Please choose which port you want to use [Default: 80]: ${rest}"
+	echo -en "${green}Please choose which port you want to use [${yellow}Default: 80${green]: ${rest}"
 	read -r WebPort
 	WebPort=${WebPort:-80}
 	if [[ ${WebPort} -gt 65535 || ${WebPort} -lt 1 ]]; then
@@ -694,11 +694,11 @@ tls() {
 		read -r remote_address
 		echo -en "${green}Enter the remote port: ${rest}"
 		read -r remote_port
-		echo -en "${green}Do you want to Enable Http2 ? (yes/no) [default: yes] : ${rest}"
+		echo -en "${green}Do you want to Enable Http2 ? (yes/no) [${yellow}Default: yes${green}] : ${rest}"
 		read -r http2
 		http2=${http2:-yes}
 		if [ "$http2" == "no" ]; then
-			echo -en "${green}Do you want to Enable PreConnect ? (yes/no) [default: yes]: ${rest}"
+			echo -en "${green}Do you want to Enable PreConnect ? (yes/no) [${yellow}Default: yes${green}]: ${rest}"
 			read -r PreConnect
 			PreConnect=${PreConnect:-yes}
 			echo -e "${cyan}============================${rest}"
@@ -817,7 +817,7 @@ EOF
 		read -r local_port
 		echo -en "${green}Enter the remote port: ${rest}"
 		read -r remote_port
-		echo -en "${green}Do you want to Enable Http2 ? (yes/no) [default: yes] : ${rest}"
+		echo -en "${green}Do you want to Enable Http2 ? (yes/no) [${yellow}Default: yes${green}] : ${rest}"
 		read -r http2
 		http2=${http2:-yes}
 
@@ -919,14 +919,14 @@ EOF
 		read -r remote_address
 		echo -en "${green}Enter the remote port: ${rest}"
 		read -r remote_port
-		echo -en "${green}Do you want to Enable Http2 ? (yes/no) [default: yes] : ${rest}"
+		echo -en "${green}Do you want to Enable Http2 ? (yes/no) [${yellow}Default: yes${green}] : ${rest}"
 		read -r http2
 		http2=${http2:-yes}
 		if [ "$http2" == "yes" ]; then
 			echo -en "${green}Enter the Connection port: ${rest}"
 			read -r connection_port
 		else
-			echo -en "${green}Do you want to Enable PreConnect ? (yes/no) [default: yes]: ${rest}"
+			echo -en "${green}Do you want to Enable PreConnect ? (yes/no) [${yellow}Default: yes${green}]: ${rest}"
 			read -r PreConnect
 			PreConnect=${PreConnect:-yes}
 			echo -e "${cyan}============================${rest}"
@@ -1044,7 +1044,7 @@ EOF
 		echo -e "${cyan}============================${rest}"
 		echo -en "${green}Enter the local port: ${rest}"
 		read -r local_port
-		echo -en "${green}Do you want to Enable Http2 ? (yes/no) [default: yes] : ${rest}"
+		echo -en "${green}Do you want to Enable Http2 ? (yes/no) [${yellow}Default: yes${green}] : ${rest}"
 		read -r http2
 		http2=${http2:-yes}
 
@@ -1498,7 +1498,7 @@ EOF
 		read -r local_port
 		echo -en "${green}Enter the remote address: ${rest}"
 		read -r remote_address
-		echo -en "${green}Enter the remote port [default:443]: ${rest}"
+		echo -en "${green}Enter the remote port [${yellow}Default: 443${green}]: ${rest}"
 		read -r remote_port
 		remote_port=${remote_port:-443}
 		echo -en "${green}Enter Password: ${rest}"
@@ -1604,7 +1604,7 @@ reality_reverse() {
 		read -r end_port
 		echo -en "${green}Enter the remote address: ${rest}"
 		read -r remote_address
-		echo -en "${green}Enter the remote port [Default: 443]: ${rest}"
+		echo -en "${green}Enter the remote port [${yellow}Default: 443${green}]: ${rest}"
 		read -r remote_port
 		remote_port=${remote_port:-443}
 		echo -en "${green}Enter SNI: ${rest}"
@@ -1700,7 +1700,7 @@ EOF
 		echo -e "${cyan}============================${rest}"
 		echo -en "${green}Enter the remote address: ${rest}"
 		read -r remote_address
-		echo -en "${green}Enter the remote port [Default: 443]: ${rest}"
+		echo -en "${green}Enter the remote port [${yellow}Default: 443${green}]: ${rest}"
 		read -r remote_port
 		remote_port=${remote_port:-443}
 		echo -en "${green}Enter SNI: ${rest}"
@@ -1819,7 +1819,7 @@ bgp4() {
 		read -r local_port
 		echo -en "${green}Enter the remote address: ${rest}"
 		read -r remote_address
-		echo -en "${green}Enter the remote port [default: 179]: ${rest}"
+		echo -en "${green}Enter the remote port [${yellow}Default: 179${green}]: ${rest}"
 		read -r remote_port
 		remote_port=${remote_port:-179}
 
@@ -1864,7 +1864,7 @@ EOF
 
 	create_bgp4_kharej() {
 		echo -e "${cyan}============================${rest}"
-		echo -en "${green}Enter the local port [default: 179]: ${rest}"
+		echo -en "${green}Enter the local port [${yellow}Default: 179${green}]: ${rest}"
 		read -r local_port
 		local_port=${local_port:-179}
 		echo -en "${green}Enter the remote port: ${rest}"
