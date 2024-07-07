@@ -823,10 +823,6 @@ EOF
 		echo -en "${green}Do you want to Enable Http2 ? (yes/no) [default: yes] : ${rest}"
 		read -r http2
 		http2=${http2:-yes}
-		if [ "$http2" == "yes" ]; then
-			echo -en "${green}Enter the Connection port: ${rest}"
-			read -r connection_port
-		fi
 
 		if [ "$http2" == "yes" ]; then
 			output="pbserver"
