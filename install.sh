@@ -450,9 +450,9 @@ EOF
 	# Function to create simple multiport to port config
 	create_simple_multiport_to_port() {
 		echo -e "${cyan}============================${rest}"
-		echo -en "${green}Enter the starting local port (greater than 23): ${rest}"
+		echo -en "${green}Enter the starting local port [${yellow}greater than 23${green}]: ${rest}"
         read -r start_port
-		echo -en "${green}Enter the ending local port (less than 65535): ${rest}"
+		echo -en "${green}Enter the ending local port [${yellow}less than 65535${green}]: ${rest}"
         read -r end_port
 		echo -en "${green}Enter the remote address: ${rest}"
         read -r remote_address
@@ -514,9 +514,9 @@ EOF
 	# Function to create multiport to multiport config
 	create_simple_multiport() {
 		echo -e "${cyan}============================${rest}"
-		echo -en "${green}Enter the starting local port (greater than 23): ${rest}"
+		echo -en "${green}Enter the starting local port [${yellow}greater than 23${green}]: ${rest}"
         read -r start_port
-		echo -en "${green}Enter the ending local port (less than 65535): ${rest}"
+		echo -en "${green}Enter the ending local port [${yellow}less than 65535${green}]: ${rest}"
         read -r end_port
 		echo -en "${green}Enter the remote address: ${rest}"
         read -r remote_address
@@ -911,9 +911,9 @@ EOF
 		echo -e "${cyan}============================${rest}"
 		echo -en "${green}Enter Your Domain: ${rest}"
 		read -r domain
-		echo -en "${green}Enter the starting local port (greater than 23): ${rest}"
+		echo -en "${green}Enter the starting local port [${yellow}greater than 23${green}]: ${rest}"
 		read -r start_port
-		echo -en "${green}Enter the ending local port (less than 65535): ${rest}"
+		echo -en "${green}Enter the ending local port [${yellow}less than 65535${green}]: ${rest}"
 		read -r end_port
 		echo -en "${green}Enter the remote address: ${rest}"
 		read -r remote_address
@@ -1186,9 +1186,9 @@ EOF
 reverse() {
 	create_reverse_tls_h2_multi_iran() {
 		echo -e "${cyan}============================${rest}"
-		echo -en "${green}Enter the starting local port (greater than 23): ${rest}"
+		echo -en "${green}Enter the starting local port [${yellow}greater than 23${green}]: ${rest}"
 		read -r start_port
-		echo -en "${green}Enter the ending local port (less than 65535): ${rest}"
+		echo -en "${green}Enter the ending local port [${yellow}less than 65535${green}]: ${rest}"
 		read -r end_port
 		echo -en "${green}Enter the remote address: ${rest}"
 		read -r remote_address
@@ -1428,9 +1428,9 @@ EOF
 direct_reality() {
 	create_reality_client_multiport_iran() {
 		echo -e "${cyan}============================${rest}"
-		echo -en "${green}Enter the starting local port (greater than 23): ${rest}"
+		echo -en "${green}Enter the starting local port [${yellow}greater than 23${green}]: ${rest}"
 		read -r start_port
-		echo -en "${green}Enter the ending local port (less than 65535): ${rest}"
+		echo -en "${green}Enter the ending local port [${yellow}less than 65535${green}]: ${rest}"
 		read -r end_port
 		echo -en "${green}Enter Password: ${rest}"
 		read -r passwd
@@ -1598,9 +1598,9 @@ EOF
 reality_reverse() {
 	create_reverse_reality_server_multiport_iran() {
 		echo -e "${cyan}============================${rest}"
-		echo -en "${green}Enter the starting local port (greater than 23): ${rest}"
+		echo -en "${green}Enter the starting local port [${yellow}greater than 23${green}]: ${rest}"
 		read -r start_port
-		echo -en "${green}Enter the ending local port (less than 65535): ${rest}"
+		echo -en "${green}Enter the ending local port [${yellow}less than 65535${green}]: ${rest}"
 		read -r end_port
 		echo -en "${green}Enter the remote address: ${rest}"
 		read -r remote_address
@@ -2506,9 +2506,9 @@ EOF
 
 	create_reverse_tls_grpc_multiport_iran() {
 		echo -e "${cyan}============================${rest}"
-		echo -en "${green}Enter the starting local port (greater than 23): ${rest}"
+		echo -en "${green}Enter the starting local port [${yellow}greater than 23${green}]: ${rest}"
 		read -r start_port
-		echo -en "${green}Enter the ending local port (less than 65535): ${rest}"
+		echo -en "${green}Enter the ending local port [${yellow}less than 65535${green}]: ${rest}"
 		read -r end_port
 
 		install_waterwall
@@ -2637,9 +2637,9 @@ EOF
 
 	create_reverse_tls_grpc_multiport_hd_iran() {
 		echo -e "${cyan}============================${rest}"
-		echo -en "${green}Enter the starting local port (greater than 23): ${rest}"
+		echo -en "${green}Enter the starting local port [${yellow}greater than 23${green}]: ${rest}"
 		read -r start_port
-		echo -en "${green}Enter the ending local port (less than 65535): ${rest}"
+		echo -en "${green}Enter the ending local port [${yellow}less than 65535${green}]: ${rest}"
 		read -r end_port
 
 		install_waterwall
