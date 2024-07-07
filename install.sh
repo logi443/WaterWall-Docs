@@ -1293,7 +1293,7 @@ reverse() {
 EOF
 		)
 		echo "$json" >/root/Waterwall/config.json
-		echo -e "${cyan}Run the script again and get the ${red}SSL Certificate ${cyan}for your ${yellow}domain${rest}"
+		echo -e "${yellow}If you haven't already, you should get [SSL CERTIFICATE] for your domain in the main menu.${rest}"
 		echo ""
 	}
 
@@ -2070,7 +2070,7 @@ EOF
 			echo ""
 			echo -e "${yellow} $T_config${rest}"
 			echo ""
-			echo -e "${purple}2) ${cyan}Run the script again and get the ${red}SSL Certificate ${cyan}for your ${yellow}domain${rest}"
+			echo -e "${purple}2) ${cyan}If you haven't already.Run the script again and get the ${red}SSL Certificate ${cyan}for your ${yellow}domain${rest}"
 			echo -e "${cyan}============================${rest}"
 		fi
 	}
