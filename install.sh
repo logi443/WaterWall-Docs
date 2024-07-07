@@ -697,10 +697,7 @@ tls() {
 		echo -en "${green}Do you want to Enable Http2 ? (yes/no) [default: yes] : ${rest}"
 		read -r http2
 		http2=${http2:-yes}
-		if [ "$http2" == "yes" ]; then
-			echo -en "${green}Enter the Connection port: ${rest}"
-			read -r connection_port
-		else
+		if [ "$http2" == "no" ]; then
 			echo -en "${green}Do you want to Enable PreConnect ? (yes/no) [default: yes]: ${rest}"
 			read -r PreConnect
 			PreConnect=${PreConnect:-yes}
@@ -750,7 +747,7 @@ EOF
             "type": "Http2Client",
             "settings": {
                 "host": "$domain",
-                "port": $connection_port,
+                "port": $remote_port,
                 "path": "/",
                 "content-type": "application/grpc"
             },
