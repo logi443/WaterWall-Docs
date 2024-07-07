@@ -1006,7 +1006,13 @@ EOF
 				)
 			fi
 		fi
-
+		
+		if [ "$http2" == "yes" ]; then
+			alpn="h2"
+		else
+			alpn="http/1.1"
+		fi
+		
 		json+=$(
 			cat <<EOF
 
@@ -1016,7 +1022,7 @@ EOF
             "settings": {
                 "sni": "$domain",
                 "verify": true,
-                "alpn":"http/1.1"
+                "alpn":"$alpn"
             },
             "next": "output"
         },
