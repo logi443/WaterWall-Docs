@@ -3089,7 +3089,6 @@ custom() {
 	fi
 
 	echo -en "${green}Please enter your JSON input. Press Ctrl+D when finished:${rest}"
-	read -r json_input
 
 	# Read JSON input from user
 	json_input=$(cat)
