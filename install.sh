@@ -3076,21 +3076,40 @@ custom() {
 	echo -en "${green}Enter Your Config Name [${yellow}Default: config.json${green}]${rest}"
 	read -r config
 	config=${config:-config.json}
-	echo -en "${green}Please enter your JSON input. Press Ctrl+D when finished:${rest}"
+	config_path="/root/Waterwall/${config}"
+
+	# Check if file already exists
+	if [ -e "$config_path" ]; then
+		echo -e "${yellow}Warning: File $config_path already exists. Do you want to overwrite it? [y/N]${rest}"
+		read -r overwrite
+		if [[ ! "$overwrite" =~ ^[Yy]$ ]]; then
+			echo -e "${red}Exiting without saving.${rest}"
+			exit 1
+		fi
+	fi
+
+	echo -e "${green}Please enter your JSON input. Press Ctrl+D when finished:${rest}"
+
+	# Read JSON input from user
 	json_input=$(cat)
 
 	install_waterwall
 
 	# Validate if JSON input is not empty
 	if [ -z "$json_input" ]; then
-		echo "Error: JSON input is empty. Exiting..."
+		echo -e "${red}Error: JSON input is empty. Exiting...${rest}"
 		exit 1
 	fi
 
-	# Save JSON input to config.json file
-	echo "$json_input" >/root/Waterwall/"${config}"
-	echo -e "${cyan}==============================================${rest}"
-	echo "JSON successfully saved to /root/Waterwall/config.json."
+	# Save JSON input to config file
+	if echo "$json_input" > "$config_path"; then
+		echo -e "${cyan}==============================================${rest}"
+		echo -e "${green}JSON successfully saved to $config_path.${rest}"
+	else
+	    echo -e "${cyan}==============================================${rest}"
+		echo -e "${red}Error: Failed to save JSON to $config_path.${rest}"
+		exit 1
+	fi
 	echo ""
 
 	waterwall_service
