@@ -1416,7 +1416,7 @@ EOF
                 "address": "0.0.0.0",
                 "port": $remote_port,
                 "nodelay": true,
-                "whitlelist": [
+                "whitelist": [
                     "$remote_address/32"
                 ]
             },
