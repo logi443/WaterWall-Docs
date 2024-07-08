@@ -3073,6 +3073,9 @@ EOF
 custom() {
 	# Ask user to enter JSON input
 	echo -e "${cyan}============================================${rest}"
+	echo -en "${green}Enter Your Config Name [${yellow}Default: config.json${green}]${rest}"
+	read -r config
+	config=${config:-config.json}
 	echo -en "${green}Please enter your JSON input. Press Ctrl+D when finished:${rest}"
 	json_input=$(cat)
 
@@ -3085,7 +3088,7 @@ custom() {
 	fi
 
 	# Save JSON input to config.json file
-	echo "$json_input" >/root/Waterwall/config.json
+	echo "$json_input" >/root/Waterwall/"${config}"
 	echo -e "${cyan}==============================================${rest}"
 	echo "JSON successfully saved to /root/Waterwall/config.json."
 	echo ""
