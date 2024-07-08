@@ -1398,11 +1398,11 @@ EOF
                 "alpns": [
                     {
                         "value": "h2",
-                        "next": "node>next"
+                        "next": "node->next"
                     },
                     {
                         "value": "http/1.1",
-                        "next": "node>next"
+                        "next": "node->next"
                     }
                 ],
                 "fallbackintencedelay": 0
