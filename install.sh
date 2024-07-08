@@ -1187,6 +1187,140 @@ EOF
 #3
 # Reverse Tunnel
 reverse() {
+    create_reverse_tls_iran() {
+		echo -e "${cyan}============================${rest}"
+		echo -en "${green}Enter the local port: ${rest}"
+		read -r local_port
+		echo -en "${green}Enter the remote address: ${rest}"
+		read -r remote_address
+		echo -en "${green}Enter the remote port: ${rest}"
+		read -r remote_port
+
+		install_waterwall
+
+		json=$(
+			cat <<EOF
+{
+    "name": "reverse_tls_iran",
+    "nodes": [
+        {
+            "name": "users_inbound",
+            "type": "TcpListener",
+            "settings": {
+                "address": "0.0.0.0",
+                "port": $local_port,
+                "nodelay": true
+            },
+            "next":  "bridge2"
+        },      
+        {
+            "name": "bridge2",
+            "type": "Bridge",
+            "settings": {
+                "pair": "bridge1"
+            }
+        },
+        {
+            "name": "bridge1",
+            "type": "Bridge",
+            "settings": {
+                "pair": "bridge2"
+            }         
+        },
+        {
+            "name": "reverse_server",
+            "type": "ReverseServer",
+            "settings": {},
+            "next": "bridge1"
+        },
+        {
+            "name": "kharej_inbound",
+            "type": "TcpListener",
+            "settings": {
+                "address": "0.0.0.0",
+                "port": $remote_port,
+                "nodelay": true,
+                "whitelist":[
+                    "$remote_address/32"
+                ]
+            },
+            "next": "reverse_server"
+        }
+    ]
+}
+EOF
+		)
+		echo "$json" >/root/Waterwall/config.json
+		echo -e "${yellow}If you haven't already, you should get [SSL CERTIFICATE] for your domain in the main menu.${rest}"
+		echo ""
+	}
+
+	create_reverse_tls_kharej() {
+		echo -e "${cyan}============================${rest}"
+		echo -en "${green}Enter the local port: ${rest}"
+		read -r local_port
+		echo -en "${green}Enter the remote address: ${rest}"
+		read -r remote_address
+		echo -en "${green}Enter the remote port: ${rest}"
+		read -r remote_port
+
+		install_waterwall
+
+		json=$(
+			cat <<EOF
+{
+    "name": "reverse_tls_kharej",
+    "nodes": [
+        {
+            "name": "outbound_to_core",
+            "type": "TcpConnector",
+            "settings": {
+                "nodelay": true,
+                "address":"127.0.0.1",
+                "port":$local_port
+            }
+        },
+        {
+            "name": "bridge1",
+            "type": "Bridge",
+            "settings": {
+                "pair": "bridge2"
+            },
+            "next": "outbound_to_core"
+        },
+        {
+            "name": "bridge2",
+            "type": "Bridge",
+            "settings": {
+                "pair": "bridge1"
+            },
+            "next": "reverse_client"
+        },
+        {
+            "name": "reverse_client",
+            "type": "ReverseClient",
+            "settings": {
+                "minimum-unused":16
+            },
+            "next":  "outbound_to_iran"
+        },
+        {
+            "name": "outbound_to_iran",
+            "type": "TcpConnector",
+            "settings": {
+                "nodelay": true,
+                "address":"$remote_address",
+                "port":$remote_port
+            }
+        }
+    ]
+}
+EOF
+		)
+		echo "$json" >/root/Waterwall/config.json
+	}
+	
+	
 	create_reverse_tls_h2_multi_iran() {
 		echo -e "${cyan}============================${rest}"
 		echo -en "${green}Enter the starting local port [${yellow}greater than 23${green}]: ${rest}"
@@ -1397,21 +1531,32 @@ EOF
 		echo "$json" >/root/Waterwall/config.json
 	}
 
-	echo -e "${yellow}      *************************************${rest}"
-	echo -e "${yellow}      |${purple} [1] ${green}Reveres Tls Multiport Iran${yellow}    |${rest}"
-	echo -e "${yellow}      |${purple} [2] ${green}Reveres Tls Multiport kharej${yellow}  |${rest}"
-	echo -e "${yellow}      |${blue}***********************************${yellow}|${rest}"
-	echo -e "${yellow}      | ${purple} [0] ${green}Back to ${purple}Main Menu${yellow}            |${rest}"
-	echo -e "${yellow}      *************************************${rest}"
+	echo -e "${yellow}      **************************************${rest}"
+	echo -e "${yellow}      |${purple} [1] ${green}Reveres Tls port to port Iran${yellow}  |${rest}"
+	echo -e "${yellow}      |${purple} [2] ${green}Reveres Tls port to port kharej${yellow}|${rest}"
+	echo -e "${yellow}      |${blue}************************************${yellow}|${rest}"
+	echo -e "${yellow}      |${purple} [3] ${green}Reveres Tls Multiport Iran${yellow}     |${rest}"
+	echo -e "${yellow}      |${purple} [4] ${green}Reveres Tls Multiport kharej${yellow}   |${rest}"
+	echo -e "${yellow}      |${blue}************************************${yellow}|${rest}"
+	echo -e "${yellow}      | ${purple} [0] ${green}Back to ${purple}Main Menu${yellow}             |${rest}"
+	echo -e "${yellow}      **************************************${rest}"
 	echo -en "${cyan}      Enter your choice (1-2): ${rest}"
 	read -r choice
 
 	case $choice in
-	1)
-		create_reverse_tls_h2_multi_iran
+    1)
+		create_reverse_tls_iran
 		waterwall_service
 		;;
 	2)
+		create_reverse_tls_kharej
+		waterwall_service
+	    ;;
+	3)
+		create_reverse_tls_h2_multi_iran
+		waterwall_service
+		;;
+	4)
 		create_reverse_tls_h2_multi_kharej
 		waterwall_service
 		;;
