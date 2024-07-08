@@ -57,8 +57,8 @@ install_waterwall() {
 
 	if [ ! -f "$INSTALL_DIR/$FILE_NAME" ]; then
 		check_dependencies
-		echo -e "${cyan}============================${rest}"
 		echo ""
+		echo -e "${cyan}============================${rest}"
 		echo -e "${cyan}Installing Waterwall...${rest}"
 		
 		if [ -z "$LATEST_RELEASE" ]; then
@@ -3113,7 +3113,6 @@ custom() {
 
 	# Save JSON input to config file
 	if echo "$json_input" > "$config_path"; then
-		echo -e "${cyan}==============================================${rest}"
 		echo -e "${green}JSON successfully saved to $config_path.${rest}"
 	else
 	    echo -e "${cyan}==============================================${rest}"
