@@ -3073,7 +3073,7 @@ EOF
 custom() {
 	# Ask user to enter JSON input
 	echo -e "${cyan}============================================${rest}"
-	echo -en "${green}Enter Your Config Name [${yellow}Default: config.json${green}]${rest}"
+	echo -en "${green}Enter Your Config Name [${yellow}Default: config.json${green}]: ${rest}"
 	read -r config
 	config=${config:-config.json}
 	config_path="/root/Waterwall/${config}"
