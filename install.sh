@@ -3323,7 +3323,6 @@ main() {
 		reverse_cdn
 		;;
 	9)
-		check_install_service
 		custom
 		;;
 	10)
