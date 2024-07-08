@@ -1405,7 +1405,7 @@ EOF
                         "next": "node->next"
                     }
                 ],
-                "fallbackintencedelay": 0
+                "fallback-intence-delay": 0
             },
             "next": "h2server"
         },
@@ -2411,7 +2411,7 @@ reverse_cdn() {
                         "next": "node->next"
                     }
                 ],
-                "fallbackintencedelay": 0
+                "fallback-intence-delay": 0
             },
             "next": "h2server"
         },
@@ -2730,7 +2730,7 @@ EOF
                         "next": "node->next"
                     }
                 ],
-                "fallbackintencedelay": 0
+                "fallback-intence-delay": 0
             },
             "next": "h2server"
         },
@@ -2867,7 +2867,7 @@ EOF
                         "next": "node->next"
                     }
                 ],
-                "fallbackintencedelay": 0
+                "fallback-intence-delay": 0
             },
             "next": "h2server"
         },
