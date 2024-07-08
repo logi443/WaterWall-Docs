@@ -57,12 +57,14 @@ install_waterwall() {
 
 	if [ ! -f "$INSTALL_DIR/$FILE_NAME" ]; then
 		check_dependencies
+		echo -e "${cyan}============================${rest}"
 		echo ""
 		echo -e "${cyan}Installing Waterwall...${rest}"
 		
 		if [ -z "$LATEST_RELEASE" ]; then
             echo -e "${red}Failed to get the latest release version.${rest}"
             return 1
+            LATEST_RELEASE
         fi
 
         echo -e "${cyan}Latest version: ${yellow}${LATEST_RELEASE}${rest}"
