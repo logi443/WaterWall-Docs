@@ -39,7 +39,7 @@ check_dependencies() {
 	detect_distribution
 
 	local dependencies
-	dependencies=("wget" "unzip" "socat" "jq")
+	dependencies=("wget" "curl" "unzip" "socat" "jq")
 
 	for dep in "${dependencies[@]}"; do
 		if ! command -v "${dep}" &>/dev/null; then
@@ -60,12 +60,12 @@ install_waterwall() {
 		echo ""
 		echo -e "${cyan}Installing Waterwall...${rest}"
 		
-		if [ -z "$LATEST_VERSION" ]; then
+		if [ -z "$LATEST_RELEASE" ]; then
             echo -e "${red}Failed to get the latest release version.${rest}"
             return 1
         fi
 
-        echo -e "${cyan}Latest version: ${yellow}${LATEST_VERSION}${rest}"
+        echo -e "${cyan}Latest version: ${yellow}${LATEST_RELEASE}${rest}"
 
 		# Determine the download URL based on the architecture
 		ARCH=$(uname -m)
