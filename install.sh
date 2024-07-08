@@ -3080,7 +3080,7 @@ custom() {
 
 	# Check if file already exists
 	if [ -e "$config_path" ]; then
-		echo -en "${yellow}Warning: File $config_path already exists. Do you want to overwrite it? [y/N]${rest}"
+		echo -en "${yellow}Warning: File $config_path already exists. Do you want to overwrite it? [y/N]: ${rest}"
 		read -r overwrite
 		if [[ ! "$overwrite" =~ ^[Yy]$ ]]; then
 			echo -e "${red}Exiting without saving.${rest}"
