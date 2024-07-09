@@ -1130,7 +1130,7 @@ EOF
 		json+=$(
 			cat <<EOF
 
-		{
+	{
             "name":"port_header",
             "type": "HeaderServer",
             "settings": {
