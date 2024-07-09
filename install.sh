@@ -1586,14 +1586,14 @@ direct_reality() {
 		read -r start_port
 		echo -en "${green}Enter the ending local port [${yellow}less than 65535${green}]: ${rest}"
 		read -r end_port
-		echo -en "${green}Enter Password: ${rest}"
-		read -r passwd
 		echo -en "${green}Enter the remote address: ${rest}"
 		read -r remote_address
-		echo -en "${green}Enter the remote port: ${rest}"
+		echo -en "${green}Enter the remote (${yellow}Connection${green}) port: ${rest}"
 		read -r remote_port
-		echo -en "${green}Enter SNI: ${rest}"
+		echo -en "${green}Enter SNI (${yellow}Example: google.com${green}): ${rest}"
 		read -r sni
+		echo -en "${green}Enter a password (${yellow}same password on both servers${green}): ${rest}"
+		read -r passwd
 
 		install_waterwall
 
@@ -1648,14 +1648,14 @@ EOF
 
 	create_reality_client_multiport_kharej() {
 		echo -e "${cyan}============================${rest}"
-		echo -en "${green}Enter the local port: ${rest}"
+		echo -en "${green}Enter the local (${yellow}Connection${green}) port: ${rest}"
 		read -r local_port
 		echo -en "${green}Enter the remote address: ${rest}"
 		read -r remote_address
 		echo -en "${green}Enter the remote port [${yellow}Default: 443${green}]: ${rest}"
 		read -r remote_port
 		remote_port=${remote_port:-443}
-		echo -en "${green}Enter Password: ${rest}"
+		echo -en "${green}Enter a password (${yellow}same password on both servers${green}): ${rest}"
 		read -r passwd
 		echo -en "${green}Enter SNI: ${rest}"
 		read -r sni
@@ -1763,7 +1763,7 @@ reality_reverse() {
 		remote_port=${remote_port:-443}
 		echo -en "${green}Enter SNI: ${rest}"
 		read -r sni
-		echo -en "${green}Enter Password: ${rest}"
+		echo -en "${green}Enter a password (${yellow}same password on both servers${green}): ${rest}"
 		read -r passwd
 
 		install_waterwall
@@ -1859,7 +1859,7 @@ EOF
 		remote_port=${remote_port:-443}
 		echo -en "${green}Enter SNI: ${rest}"
 		read -r sni
-		echo -en "${green}Enter Password: ${rest}"
+		echo -en "${green}Enter a password (${yellow}same password on both servers${green}): ${rest}"
 		read -r passwd
 
 		install_waterwall
