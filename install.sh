@@ -1646,6 +1646,7 @@ EOF
 
 	create_reality_client_multiport_kharej() {
 		echo -e "${cyan}============================${rest}"
+		echo -e "${yellow}This method uses port 443. Make sure it is not already in use and is open. ${rest}"
 		echo -en "${green}Enter the remote address: ${rest}"
 		read -r remote_address
 		echo -en "${green}Enter a password (${yellow}same password on both servers${green}): ${rest}"
