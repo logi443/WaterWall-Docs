@@ -1199,11 +1199,11 @@ EOF
 reverse() {
     create_reverse_tls_iran() {
 		echo -e "${cyan}============================${rest}"
-		echo -en "${green}Enter the local (Client Config) port: ${rest}"
+		echo -en "${green}Enter the local (${yellow}Client Config${green}) port: ${rest}"
 		read -r local_port
 		echo -en "${green}Enter the remote address: ${rest}"
 		read -r remote_address
-		echo -en "${green}Enter the remote (Connection) port: ${rest}"
+		echo -en "${green}Enter the remote (${yellow}Connection${green}) port: ${rest}"
 		read -r remote_port
 
 		install_waterwall
@@ -1267,11 +1267,11 @@ EOF
 
 	create_reverse_tls_kharej() {
 		echo -e "${cyan}============================${rest}"
-		echo -en "${green}Enter the local (Server Config) port: ${rest}"
+		echo -en "${green}Enter the local (${yellow}Server Config${green}) port: ${rest}"
 		read -r local_port
 		echo -en "${green}Enter the remote address: ${rest}"
 		read -r remote_address
-		echo -en "${green}Enter the remote (Connection) port: ${rest}"
+		echo -en "${green}Enter the remote (${yellow}Connection${green}) port: ${rest}"
 		read -r remote_port
 
 		install_waterwall
