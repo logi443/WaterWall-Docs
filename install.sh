@@ -1962,7 +1962,7 @@ bgp4() {
 		read -r local_port
 		echo -en "${green}Enter the remote address: ${rest}"
 		read -r remote_address
-		echo -en "${green}Enter the remote port [${yellow}Default: 179${green}]: ${rest}"
+		echo -en "${green}Enter the remote (${yellow}Connection${green}) port [${yellow}Default: 179${green}]: ${rest}"
 		read -r remote_port
 		remote_port=${remote_port:-179}
 
@@ -2007,7 +2007,7 @@ EOF
 
 	create_bgp4_kharej() {
 		echo -e "${cyan}============================${rest}"
-		echo -en "${green}Enter the local port [${yellow}Default: 179${green}]: ${rest}"
+		echo -en "${green}Enter the local (${yellow}Connection${green}) port [${yellow}Default: 179${green}]: ${rest}"
 		read -r local_port
 		local_port=${local_port:-179}
 		echo -en "${green}Enter the remote port: ${rest}"
