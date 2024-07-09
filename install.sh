@@ -1064,7 +1064,7 @@ EOF
 		if [ "$http2" == "yes" ]; then
 			output="pbserver"
 		else
-			output="output"
+			output="port_header"
 		fi
 
 		install_waterwall
@@ -1102,20 +1102,12 @@ EOF
                 ],
                 "fallback-intence-delay":0
             },
-            "next": "port_header"
-        },
-        {
-            "name":"port_header",
-            "type": "HeaderServer",
-            "settings": {
-                "override": "dest_context->port"
-            },
             "next": "$output"
         },
 EOF
-		)
-
-		if [ "$http2" == "yes" ]; then
+        )
+        
+        if [ "$http2" == "yes" ]; then
 			json+=$(
 				cat <<EOF
 
@@ -1129,15 +1121,27 @@ EOF
             "name": "h2server",
             "type": "Http2Server",
             "settings": {},
-            "next": "output"
+            "next": "port_header"
         },
 EOF
 			)
 		fi
+		
+        
+EOF
+		)
 
 		json+=$(
 			cat <<EOF
 
+		{
+            "name":"port_header",
+            "type": "HeaderServer",
+            "settings": {
+                "override": "dest_context->port"
+            },
+            "next": "output"
+        },
         {
             "name": "output",
             "type": "TcpConnector",
