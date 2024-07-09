@@ -1752,9 +1752,6 @@ reality_reverse() {
 		read -r end_port
 		echo -en "${green}Enter the remote address: ${rest}"
 		read -r remote_address
-		echo -en "${green}Enter the remote port [${yellow}Default: 443${green}]: ${rest}"
-		read -r remote_port
-		remote_port=${remote_port:-443}
 		echo -en "${green}Enter SNI (${yellow}Example: google.com${green}): ${rest}"
 		read -r sni
 		echo -en "${green}Enter a password (${yellow}same password on both servers${green}): ${rest}"
@@ -1819,7 +1816,7 @@ reality_reverse() {
             "type": "TcpListener",
             "settings": {
                 "address": "0.0.0.0",
-                "port": $remote_port,
+                "port": 443,
                 "nodelay": true,
                 "whitelist": [
                     "$remote_address/32"
@@ -1833,7 +1830,7 @@ reality_reverse() {
             "settings": {
                 "nodelay": true,
                 "address": "$sni",
-                "port": $remote_port
+                "port": 443
             }
         }
     ]
@@ -1846,11 +1843,9 @@ EOF
 
 	create_reverse_reality_client_multiport_kharej() {
 		echo -e "${cyan}============================${rest}"
+		echo -e "${yellow}This method uses port 443. Make sure it is not already in use and is open. ${rest}"
 		echo -en "${green}Enter the remote address: ${rest}"
 		read -r remote_address
-		echo -en "${green}Enter the remote port [${yellow}Default: 443${green}]: ${rest}"
-		read -r remote_port
-		remote_port=${remote_port:-443}
 		echo -en "${green}Enter SNI (${yellow}Example: google.com${green}): ${rest}"
 		read -r sni
 		echo -en "${green}Enter a password (${yellow}same password on both servers${green}): ${rest}"
@@ -1919,7 +1914,7 @@ EOF
             "settings": {
                 "nodelay": true,
                 "address": "$remote_address",
-                "port": $remote_port
+                "port": 443
             }
         }
     ]
