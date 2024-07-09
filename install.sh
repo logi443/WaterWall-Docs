@@ -821,8 +821,6 @@ EOF
 	# Function to create tls port to port config
 	create_tls_port_to_port_kharej() {
 		echo -e "${cyan}============================${rest}"
-		echo -en "${green}Enter Your Domain: ${rest}"
-		read -r domain
 		echo -en "${green}Enter the local port: ${rest}"
 		read -r local_port
 		echo -en "${green}Enter the remote port: ${rest}"
