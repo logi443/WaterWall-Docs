@@ -1062,7 +1062,7 @@ EOF
 		http2=${http2:-yes}
 
 		if [ "$http2" == "yes" ]; then
-			output="pbserver"
+			output="h2server"
 		else
 			output="port_header"
 		fi
@@ -1115,13 +1115,13 @@ EOF
             "name": "h2server",
             "type": "Http2Server",
             "settings": {},
-            "next": "port_header"
+            "next": "pbserver"
         },
         {
             "name": "pbserver",
             "type": "ProtoBufServer",
             "settings": {},
-            "next": "h2server"
+            "next": "port_header"
         },
 EOF
 			)
