@@ -1126,10 +1126,6 @@ EOF
 EOF
 			)
 		fi
-		
-        
-EOF
-		)
 
 		json+=$(
 			cat <<EOF
