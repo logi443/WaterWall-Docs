@@ -1588,9 +1588,6 @@ direct_reality() {
 		read -r end_port
 		echo -en "${green}Enter the remote address: ${rest}"
 		read -r remote_address
-		echo -en "${green}Enter the remote port [${yellow}Default: 443${green}]: ${rest}"
-		read -r remote_port
-		remote_port=${remote_port:-443}
 		echo -en "${green}Enter SNI (${yellow}Example: google.com${green}): ${rest}"
 		read -r sni
 		echo -en "${green}Enter a password (${yellow}same password on both servers${green}): ${rest}"
@@ -1636,7 +1633,7 @@ direct_reality() {
             "settings": {
                 "nodelay": true,
                 "address": "$remote_address",
-                "port": $remote_port
+                "port": 443
             }
         }
     ]
@@ -1649,13 +1646,8 @@ EOF
 
 	create_reality_client_multiport_kharej() {
 		echo -e "${cyan}============================${rest}"
-		echo -en "${green}Enter the local (${yellow}Connection${green}) port: ${rest}"
-		read -r local_port
 		echo -en "${green}Enter the remote address: ${rest}"
 		read -r remote_address
-		echo -en "${green}Enter the remote port [${yellow}Default: 443${green}]: ${rest}"
-		read -r remote_port
-		remote_port=${remote_port:-443}
 		echo -en "${green}Enter a password (${yellow}same password on both servers${green}): ${rest}"
 		read -r passwd
 		echo -en "${green}Enter SNI (${yellow}Example: google.com${green}): ${rest}"
@@ -1673,7 +1665,7 @@ EOF
             "type": "TcpListener",
             "settings": {
                 "address": "0.0.0.0",
-                "port": $local_port,
+                "port": 443,
                 "nodelay": true
             },
             "next": "my_reality_server"
@@ -1710,7 +1702,7 @@ EOF
             "settings": {
                 "nodelay": true,
                 "address": "$sni",
-                "port": $remote_port
+                "port": 443
             }
         }
     ]
