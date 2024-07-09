@@ -927,7 +927,7 @@ EOF
 		read -r end_port
 		echo -en "${green}Enter the remote address: ${rest}"
 		read -r remote_address
-		echo -en "${green}Enter the remote port: ${rest}"
+		echo -en "${green}Enter the remote (${yellow}Connection${green}) port: ${rest}"
 		read -r remote_port
 		echo -en "${green}Do you want to Enable Http2 ? (yes/no) [${yellow}Default: yes${green}] : ${rest}"
 		read -r http2
@@ -1055,7 +1055,7 @@ EOF
 	# Function to create tls multi port kharej
 	create_tls_multi_port_kharej() {
 		echo -e "${cyan}============================${rest}"
-		echo -en "${green}Enter the local port: ${rest}"
+		echo -en "${green}Enter the local (${yellow}Connection${green}) port: ${rest}"
 		read -r local_port
 		echo -en "${green}Do you want to Enable Http2 ? (yes/no) [${yellow}Default: yes${green}] : ${rest}"
 		read -r http2
