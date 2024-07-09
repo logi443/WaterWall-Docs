@@ -1657,7 +1657,7 @@ EOF
 		remote_port=${remote_port:-443}
 		echo -en "${green}Enter a password (${yellow}same password on both servers${green}): ${rest}"
 		read -r passwd
-		echo -en "${green}Enter SNI: ${rest}"
+		echo -en "${green}Enter SNI (${yellow}Example: google.com${green}): ${rest}"
 		read -r sni
 
 		install_waterwall
@@ -1761,7 +1761,7 @@ reality_reverse() {
 		echo -en "${green}Enter the remote port [${yellow}Default: 443${green}]: ${rest}"
 		read -r remote_port
 		remote_port=${remote_port:-443}
-		echo -en "${green}Enter SNI: ${rest}"
+		echo -en "${green}Enter SNI (${yellow}Example: google.com${green}): ${rest}"
 		read -r sni
 		echo -en "${green}Enter a password (${yellow}same password on both servers${green}): ${rest}"
 		read -r passwd
@@ -1857,7 +1857,7 @@ EOF
 		echo -en "${green}Enter the remote port [${yellow}Default: 443${green}]: ${rest}"
 		read -r remote_port
 		remote_port=${remote_port:-443}
-		echo -en "${green}Enter SNI: ${rest}"
+		echo -en "${green}Enter SNI (${yellow}Example: google.com${green}): ${rest}"
 		read -r sni
 		echo -en "${green}Enter a password (${yellow}same password on both servers${green}): ${rest}"
 		read -r passwd
