@@ -2010,7 +2010,7 @@ EOF
 		echo -en "${green}Enter the local (${yellow}Connection${green}) port [${yellow}Default: 179${green}]: ${rest}"
 		read -r local_port
 		local_port=${local_port:-179}
-		echo -en "${green}Enter the remote port: ${rest}"
+		echo -en "${green}Enter the remote (${yellow}Server Config ${green}) port: ${rest}"
 		read -r remote_port
 
 		install_waterwall
