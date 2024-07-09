@@ -698,11 +698,11 @@ tls() {
 		echo -e "${cyan}============================${rest}"
 		echo -en "${green}Enter Your Domain:${rest} "
 		read -r domain
-		echo -en "${green}Enter the local port: ${rest}"
+		echo -en "${green}Enter the local (${yellow}Client Config${green}) port: ${rest}"
 		read -r local_port
 		echo -en "${green}Enter the remote address: ${rest}"
 		read -r remote_address
-		echo -en "${green}Enter the remote port: ${rest}"
+		echo -en "${green}Enter the remote (${yellow}Connection${green}) port: ${rest}"
 		read -r remote_port
 		echo -en "${green}Do you want to Enable Http2 ? (yes/no) [${yellow}Default: yes${green}] : ${rest}"
 		read -r http2
@@ -821,9 +821,9 @@ EOF
 	# Function to create tls port to port config
 	create_tls_port_to_port_kharej() {
 		echo -e "${cyan}============================${rest}"
-		echo -en "${green}Enter the local port: ${rest}"
+		echo -en "${green}Enter the local (${yellow}Connection${green}) port: ${rest}"
 		read -r local_port
-		echo -en "${green}Enter the remote port: ${rest}"
+		echo -en "${green}Enter the remote (${yellow}Server Config${green}) port: ${rest}"
 		read -r remote_port
 		echo -en "${green}Do you want to Enable Http2 ? (yes/no) [${yellow}Default: yes${green}] : ${rest}"
 		read -r http2
