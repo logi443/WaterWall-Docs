@@ -2051,13 +2051,129 @@ EOF
 		)
 		echo "$json" >/root/Waterwall/config.json
 	}
+	
+	create_bgp4_multiport_iran() {
+		echo -e "${cyan}============================${rest}"
+		echo -en "${green}Enter the starting local port [${yellow}greater than 23${green}]: ${rest}"
+		read -r start_port
+		echo -en "${green}Enter the ending local port [${yellow}less than 65535${green}]: ${rest}"
+		read -r end_port
+		echo -en "${green}Enter the remote address: ${rest}"
+		read -r remote_address
+		echo -en "${green}Enter the remote (${yellow}Connection${green}) port [${yellow}Default: 179${green}]: ${rest}"
+		read -r remote_port
+		remote_port=${remote_port:-179}
 
-	echo -e "${yellow}      ****************************${rest}"
-	echo -e "${yellow}      | ${purple}[1]${green} bgp4 Iran${yellow}            |${rest}"
-	echo -e "${yellow}      | ${purple}[2]${green} bgp4 kharej${yellow}          |${rest}"
-	echo -e "${yellow}      |${blue}**************************${yellow}|${rest}"
-	echo -e "${yellow}      | ${purple} [0] ${green}Back to ${purple}Main Menu${yellow}   |${rest}"
-	echo -e "${yellow}      ****************************${rest}"
+		install_waterwall
+
+		json=$(
+			cat <<EOF
+{
+    "name": "bgp_Multiport_client",
+    "nodes": [
+        {
+            "name": "input",
+            "type": "TcpListener",
+            "settings": {
+                "address": "0.0.0.0",
+                "port": [$start_port,$end_port],
+                "nodelay": true
+            },
+            "next": "port_header"
+        },
+        {
+            "name": "port_header",
+            "type": "HeaderClient",
+            "settings": {
+                "data": "src_context->port"
+            },
+            "next": "bgp_client"
+        },
+        {
+            "name": "bgp_client",
+            "type": "Bgp4Client",
+            "settings": {},
+            "next": "output"
+        }, 
+        {
+            "name": "output",
+            "type": "TcpConnector",
+            "settings": {
+                "nodelay": true,
+                "address": "$remote_address",
+                "port": $remote_port
+            }
+        }
+    ]
+}
+EOF
+		)
+		echo "$json" >/root/Waterwall/config.json
+	}
+
+	create_bgp4_multiport_kharej() {
+		echo -e "${cyan}============================${rest}"
+		echo -en "${green}Enter the local (${yellow}Connection${green}) port [${yellow}Default: 179${green}]: ${rest}"
+		read -r local_port
+		local_port=${local_port:-179}
+
+		install_waterwall
+
+		json=$(
+			cat <<EOF
+{
+    "name": "bgp_Multiport_server",
+    "nodes": [
+        {
+            "name": "input",
+            "type": "TcpListener",
+            "settings": {
+                "address": "0.0.0.0",
+                "port": $local_port,
+                "nodelay": true
+            },
+            "next": "bgp_server"
+        },
+        {
+            "name": "bgp_server",
+            "type": "Bgp4Server",
+            "settings": {},
+            "next": "port_header"
+        },
+        {
+            "name":"port_header",
+            "type": "HeaderServer",
+            "settings": {
+                "override": "dest_context->port"
+            },
+            "next": "output"
+
+        },
+        {
+            "name": "output",
+            "type": "TcpConnector",
+            "settings": {
+                "nodelay": true,
+                "address": "127.0.0.1",
+                "port": "dest_context->port"
+            }
+        }
+    ]
+}
+EOF
+		)
+		echo "$json" >/root/Waterwall/config.json
+	}
+
+	echo -e "${yellow}      ********************************${rest}"
+	echo -e "${yellow}      | ${purple}[1]${green} bgp4 port to port Iran${yellow}   |${rest}"
+	echo -e "${yellow}      | ${purple}[2]${green} bgp4 port to port kharej${yellow} |${rest}"
+	echo -e "${yellow}      |${blue}******************************${yellow}|${rest}"
+	echo -e "${yellow}      | ${purple}[3]${green} bgp4 Multiport Iran${yellow}      |${rest}"
+	echo -e "${yellow}      | ${purple}[4]${green} bgp4 Multiport kharej${yellow}    |${rest}"
+	echo -e "${yellow}      |${blue}******************************${yellow}|${rest}"
+	echo -e "${yellow}      | ${purple} [0] ${green}Back to ${purple}Main Menu${yellow}       |${rest}"
+	echo -e "${yellow}      ********************************${rest}"
 	echo -en "${cyan}      Enter your choice (1-2): ${rest}"
 	read -r choice
 
@@ -2068,6 +2184,14 @@ EOF
 		;;
 	2)
 		create_bgp4_kharej
+		waterwall_service
+		;;
+	3)
+		create_bgp4_multiport_iran
+		waterwall_service
+		;;
+	4)
+		create_bgp4_multiport_kharej
 		waterwall_service
 		;;
 	0)
