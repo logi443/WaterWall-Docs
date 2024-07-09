@@ -1199,7 +1199,7 @@ EOF
 reverse() {
     create_reverse_tls_iran() {
 		echo -e "${cyan}============================${rest}"
-		echo -en "${green}Enter the local port: ${rest}"
+		echo -en "${green}Enter the local (Client Config) port: ${rest}"
 		read -r local_port
 		echo -en "${green}Enter the remote address: ${rest}"
 		read -r remote_address
@@ -1267,7 +1267,7 @@ EOF
 
 	create_reverse_tls_kharej() {
 		echo -e "${cyan}============================${rest}"
-		echo -en "${green}Enter the local (Config) port: ${rest}"
+		echo -en "${green}Enter the local (Server Config) port: ${rest}"
 		read -r local_port
 		echo -en "${green}Enter the remote address: ${rest}"
 		read -r remote_address
