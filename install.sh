@@ -1111,17 +1111,17 @@ EOF
 			json+=$(
 				cat <<EOF
 
+		{
+            "name": "h2server",
+            "type": "Http2Server",
+            "settings": {},
+            "next": "port_header"
+        },
         {
             "name": "pbserver",
             "type": "ProtoBufServer",
             "settings": {},
             "next": "h2server"
-        },
-        {
-            "name": "h2server",
-            "type": "Http2Server",
-            "settings": {},
-            "next": "port_header"
         },
 EOF
 			)
