@@ -1203,7 +1203,7 @@ reverse() {
 		read -r local_port
 		echo -en "${green}Enter the remote address: ${rest}"
 		read -r remote_address
-		echo -en "${green}Enter the remote port: ${rest}"
+		echo -en "${green}Enter the remote (Connection) port: ${rest}"
 		read -r remote_port
 
 		install_waterwall
@@ -1267,11 +1267,11 @@ EOF
 
 	create_reverse_tls_kharej() {
 		echo -e "${cyan}============================${rest}"
-		echo -en "${green}Enter the local port: ${rest}"
+		echo -en "${green}Enter the local (Config) port: ${rest}"
 		read -r local_port
 		echo -en "${green}Enter the remote address: ${rest}"
 		read -r remote_address
-		echo -en "${green}Enter the remote port: ${rest}"
+		echo -en "${green}Enter the remote (Connection) port: ${rest}"
 		read -r remote_port
 
 		install_waterwall
