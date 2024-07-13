@@ -2465,7 +2465,7 @@ EOF
 reverse_cdn() {
 	create_reverse_tls_grpc_singleport_iran() {
 		echo -e "${cyan}============================${rest}"
-		echo -en "${green}Enter the local (${yellow}Connection${green}) port: ${rest}"
+		echo -en "${green}Enter the local port: ${rest}"
 		read -r local_port
 
 		install_waterwall
@@ -2590,9 +2590,7 @@ EOF
 		read -r domain
 		echo -en "${green}Enter the local (${yellow}Config${green}) port: ${rest}"
 		read -r local_port
-		echo -en "${green}Enter the remote (${yellow}Connection${green}) port: ${rest}"
-		read -r remote_port
-
+		
 		install_waterwall
 
 		json=$(
@@ -2643,7 +2641,7 @@ EOF
             "type": "Http2Client",
             "settings": {
                 "host": "$domain",
-                "port": $remote_port,
+                "port": 443,
                 "path": "/service",
                 "content-type": "application/grpc"
             },
