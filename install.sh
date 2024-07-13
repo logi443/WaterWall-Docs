@@ -51,7 +51,7 @@ check_dependencies() {
 
 # Check and nstall waterwall
 install_waterwall() {
-    LATEST_RELEASE=$(curl --silent "https://api.github.com/repos/radkesvat/WaterWall/releases/latest" | grep -Po '"tag_name": "\K.*?(?=")')
+	LATEST_RELEASE=$(curl --silent "https://api.github.com/repos/radkesvat/WaterWall/releases/latest" | grep -Po '"tag_name": "\K.*?(?=")')
 	INSTALL_DIR="/root/Waterwall"
 	FILE_NAME="Waterwall"
 
@@ -60,14 +60,14 @@ install_waterwall() {
 		echo ""
 		echo -e "${cyan}============================${rest}"
 		echo -e "${cyan}Installing Waterwall...${rest}"
-		
-		if [ -z "$LATEST_RELEASE" ]; then
-            echo -e "${red}Failed to get the latest release version.${rest}"
-            return 1
-            LATEST_RELEASE
-        fi
 
-        echo -e "${cyan}Latest version: ${yellow}${LATEST_RELEASE}${rest}"
+		if [ -z "$LATEST_RELEASE" ]; then
+			echo -e "${red}Failed to get the latest release version.${rest}"
+			return 1
+			LATEST_RELEASE
+		fi
+
+		echo -e "${cyan}Latest version: ${yellow}${LATEST_RELEASE}${rest}"
 
 		# Determine the download URL based on the architecture
 		ARCH=$(uname -m)
@@ -408,9 +408,9 @@ simple_direct() {
 		echo -en "${green}Do you want to Enable PreConnect (yes/no) [${yellow}Default: yes${green}] : ${rest}"
 		read -r PreConnect
 		if [ "$PreConnect" != "no" ]; then
-		    echo -en "${green}Enter Minimum-unused [${yellow}Default: 1${green}]: ${rest}"
-		    read -r min_un
-		    min_un=${min_un:-1}
+			echo -en "${green}Enter Minimum-unused [${yellow}Default: 1${green}]: ${rest}"
+			read -r min_un
+			min_un=${min_un:-1}
 		fi
 
 		install_waterwall
@@ -467,19 +467,19 @@ EOF
 	create_simple_multiport_to_port() {
 		echo -e "${cyan}============================${rest}"
 		echo -en "${green}Enter the starting local port [${yellow}greater than 23${green}]: ${rest}"
-        read -r start_port
+		read -r start_port
 		echo -en "${green}Enter the ending local port [${yellow}less than 65535${green}]: ${rest}"
-        read -r end_port
+		read -r end_port
 		echo -en "${green}Enter the remote address: ${rest}"
-        read -r remote_address
+		read -r remote_address
 		echo -en "${green}Enter the remote port: ${rest}"
-        read -r remote_port
+		read -r remote_port
 		echo -en "${green}Do you want to Enable PreConnect (yes/no) [${yellow}Default: yes${green}] : ${rest}"
-        read -r PreConnect
-        if [ "$PreConnect" != "no" ]; then
-		    echo -en "${green}Enter Minimum-unused [${yellow}Default: 1${green}]: ${rest}"
-		    read -r min_un
-		    min_un=${min_un:-1}
+		read -r PreConnect
+		if [ "$PreConnect" != "no" ]; then
+			echo -en "${green}Enter Minimum-unused [${yellow}Default: 1${green}]: ${rest}"
+			read -r min_un
+			min_un=${min_un:-1}
 		fi
 
 		install_waterwall
@@ -536,17 +536,17 @@ EOF
 	create_simple_multiport() {
 		echo -e "${cyan}============================${rest}"
 		echo -en "${green}Enter the starting local port [${yellow}greater than 23${green}]: ${rest}"
-        read -r start_port
+		read -r start_port
 		echo -en "${green}Enter the ending local port [${yellow}less than 65535${green}]: ${rest}"
-        read -r end_port
+		read -r end_port
 		echo -en "${green}Enter the remote address: ${rest}"
-        read -r remote_address
+		read -r remote_address
 		echo -en "${green}Do you want to Enable PreConnect (yes/no) [${yellow}Default: yes${green}] : ${rest}"
-        read -r PreConnect
-        if [ "$PreConnect" != "no" ]; then
-		    echo -en "${green}Enter Minimum-unused [${yellow}Default: 1${green}]: ${rest}"
-		    read -r min_un
-		    min_un=${min_un:-1}
+		read -r PreConnect
+		if [ "$PreConnect" != "no" ]; then
+			echo -en "${green}Enter Minimum-unused [${yellow}Default: 1${green}]: ${rest}"
+			read -r min_un
+			min_un=${min_un:-1}
 		fi
 
 		install_waterwall
@@ -728,9 +728,9 @@ tls() {
 			read -r PreConnect
 			PreConnect=${PreConnect:-yes}
 			if [ "$PreConnect" != "no" ]; then
-			    echo -en "${green}Enter Minimum-unused [${yellow}Default: 1${green}]: ${rest}"
-			    read -r min_un
-			    min_un=${min_un:-1}
+				echo -en "${green}Enter Minimum-unused [${yellow}Default: 1${green}]: ${rest}"
+				read -r min_un
+				min_un=${min_un:-1}
 			fi
 			echo -e "${cyan}============================${rest}"
 		fi
@@ -956,9 +956,9 @@ EOF
 			read -r PreConnect
 			PreConnect=${PreConnect:-yes}
 			if [ "$PreConnect" != "no" ]; then
-			    echo -en "${green}Enter Minimum-unused [${yellow}Default: 1${green}]: ${rest}"
-			    read -r min_un
-			    min_un=${min_un:-1}
+				echo -en "${green}Enter Minimum-unused [${yellow}Default: 1${green}]: ${rest}"
+				read -r min_un
+				min_un=${min_un:-1}
 			fi
 			echo -e "${cyan}============================${rest}"
 		fi
@@ -1040,13 +1040,13 @@ EOF
 				)
 			fi
 		fi
-		
+
 		if [ "$http2" == "yes" ]; then
 			alpn="h2"
 		else
 			alpn="http/1.1"
 		fi
-		
+
 		json+=$(
 			cat <<EOF
 
@@ -1129,9 +1129,9 @@ EOF
             "next": "$output"
         },
 EOF
-        )
-        
-        if [ "$http2" == "yes" ]; then
+		)
+
+		if [ "$http2" == "yes" ]; then
 			json+=$(
 				cat <<EOF
 
@@ -1221,7 +1221,7 @@ EOF
 #3
 # Reverse Tunnel
 reverse() {
-    create_reverse_tls_iran() {
+	create_reverse_tls_iran() {
 		echo -e "${cyan}============================${rest}"
 		echo -en "${green}Enter the local (${yellow}Client Config${green}) port: ${rest}"
 		read -r local_port
@@ -1356,8 +1356,7 @@ EOF
 		)
 		echo "$json" >/root/Waterwall/config.json
 	}
-	
-	
+
 	create_reverse_tls_h2_multi_iran() {
 		echo -e "${cyan}============================${rest}"
 		echo -en "${green}Enter the starting local port [${yellow}greater than 23${green}]: ${rest}"
@@ -1584,14 +1583,14 @@ EOF
 	read -r choice
 
 	case $choice in
-    1)
+	1)
 		create_reverse_tls_iran
 		waterwall_service
 		;;
 	2)
 		create_reverse_tls_kharej
 		waterwall_service
-	    ;;
+		;;
 	3)
 		create_reverse_tls_h2_multi_iran
 		waterwall_service
@@ -2086,7 +2085,7 @@ EOF
 		)
 		echo "$json" >/root/Waterwall/config.json
 	}
-	
+
 	create_bgp4_multiport_iran() {
 		echo -e "${cyan}============================${rest}"
 		echo -en "${green}Enter the starting local port [${yellow}greater than 23${green}]: ${rest}"
@@ -2624,7 +2623,7 @@ EOF
 		read -r domain
 		echo -en "${green}Enter the local (${yellow}Config${green}) port: ${rest}"
 		read -r local_port
-		
+
 		install_waterwall
 
 		json=$(
@@ -3254,10 +3253,10 @@ custom() {
 	fi
 
 	# Save JSON input to config file
-	if echo "$json_input" > "$config_path"; then
+	if echo "$json_input" >"$config_path"; then
 		echo -e "${green}JSON successfully saved to $config_path.${rest}"
 	else
-	    echo -e "${cyan}==============================================${rest}"
+		echo -e "${cyan}==============================================${rest}"
 		echo -e "${red}Error: Failed to save JSON to $config_path.${rest}"
 		exit 1
 	fi
@@ -3270,7 +3269,7 @@ custom() {
 # Uninstall Waterwall
 uninstall_waterwall() {
 	if [ -f ~/Waterwall/config.json ] || [ -f /etc/systemd/system/Waterwall.service ]; then
-	    echo -e "${cyan}==============================================${rest}"
+		echo -e "${cyan}==============================================${rest}"
 		echo -en "${green}Press Enter to continue, or Ctrl+C to cancel.${rest}"
 		read -r
 		if [ -d ~/Waterwall/cert ] || [ -f ~/.acme/acme.sh ]; then
