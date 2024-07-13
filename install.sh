@@ -2475,7 +2475,7 @@ EOF
 	echo -e "${yellow}      |${purple} [1]${green} Install Trojan${yellow}      |${rest}"
 	echo -e "${yellow}      |${purple} [2]${green} Add user${yellow}            |${rest}"
 	echo -e "${yellow}      |${purple} [3]${green} Del user${yellow}            |${rest}"
-	echo -e "${yellow}      |${purple} [4]${green} Uninstall${yellow}           |${rest}"
+	echo -e "${yellow}      |${purple} [4]${green} Uninstall Trojan${yellow}    |${rest}"
 	echo -e "${yellow}      |${blue}*************************${yellow}|${rest}"
 	echo -e "${yellow}      |${purple}  [0] ${green}Back to ${purple}Main Menu${yellow}  |${rest}"
 	echo -e "${yellow}      ***************************${rest}"
