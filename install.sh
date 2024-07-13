@@ -2264,6 +2264,14 @@ trojan_config() {
 			read -r user
 			echo -en "${green}Enter uuid (Password): ${rest}"
 			read -r passwd
+			echo -en "${green}Enter Tls fallback Address [${yellow}Default: demo.nginx.com${green}]${rest}"
+			read -r tls_fall
+			tls_fall=${tls_fall:-demo.nginx.com}
+			echo -en "${green}Enter trojan fallback Address [${yellow}Default: httpforever.com${green}]${rest}"
+			read -r trojan_fall
+			trojan_fall=${trojan_fall:-httpforever.com}
+			
+			
 
 			# Install Waterwall
 			install_waterwall
@@ -2341,7 +2349,7 @@ trojan_config() {
             "type": "TcpConnector",
             "settings": {
                 "nodelay": true,
-                "address": "demo.nginx.com",
+                "address": "${tls_fall}",
                 "port": 443
             }
         },
@@ -2350,7 +2358,7 @@ trojan_config() {
             "type": "TcpConnector",
             "settings": {
                 "nodelay": true,
-                "address": "httpforever.com",
+                "address": "${trojan_fall}",
                 "port": 80
             }
         }
