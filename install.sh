@@ -3285,7 +3285,6 @@ User=root
 WorkingDirectory=/root/Waterwall
 ExecStart=/root/Waterwall/Waterwall
 Restart=always
-RestartSec=3s
 
 [Install]
 WantedBy=multi-user.target
@@ -3313,7 +3312,6 @@ User=root
 WorkingDirectory=/root/Waterwall/trojan
 ExecStart=/root/Waterwall/Waterwall
 Restart=always
-RestartSec=3s
 
 [Install]
 WantedBy=multi-user.target
