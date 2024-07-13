@@ -2264,10 +2264,10 @@ trojan_config() {
 			read -r user
 			echo -en "${green}Enter uuid (Password): ${rest}"
 			read -r passwd
-			echo -en "${green}Enter Tls fallback Address [${yellow}Default: demo.nginx.com${green}]${rest}"
+			echo -en "${green}Enter Tls fallback Address [${yellow}Default: demo.nginx.com${green}]: ${rest}"
 			read -r tls_fall
 			tls_fall=${tls_fall:-demo.nginx.com}
-			echo -en "${green}Enter trojan fallback Address [${yellow}Default: httpforever.com${green}]${rest}"
+			echo -en "${green}Enter trojan fallback Address [${yellow}Default: httpforever.com${green}]: ${rest}"
 			read -r trojan_fall
 			trojan_fall=${trojan_fall:-httpforever.com}
 			
