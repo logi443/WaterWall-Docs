@@ -2419,6 +2419,7 @@ EOF
 			jq -r '.nodes[2].settings.users | to_entries[] | "\(.key + 1). \(.value.name) (\(.value.uid))"' ~/Waterwall/trojan/trojan_config.json
 
 			# Ask user to enter the index number of the user to delete
+			echo -e "${cyan}============================${rest}"
 			echo -en "\n${green}Enter the number of the user to delete: ${rest}"
 			read -r index
 
