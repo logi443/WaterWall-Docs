@@ -2423,7 +2423,6 @@ EOF
 			echo -e "${cyan}============================${rest}"
 			echo -en "${green}Enter the number of the user to delete: ${rest}"
 			read -r index
-			echo -e "${cyan}============================${rest}"
 
 			# Check if the input index is valid
 			num_users=$(jq '.nodes[2].settings.users | length' ~/Waterwall/trojan/trojan_config.json)
@@ -2432,6 +2431,7 @@ EOF
 				jq "del(.nodes[2].settings.users[$index - 1])" ~/Waterwall/trojan/trojan_config.json >~/Waterwall/temp.json && mv ~/Waterwall/temp.json ~/Waterwall/trojan/trojan_config.json
 				echo -e "${cyan}============================${rest}"
 				echo -e "${green}User ${cyan}$index${green} has been deleted.${rest}"
+				echo -e "${cyan}============================${rest}"
 				sudo systemctl restart trojan.service >/dev/null 2>&1
 			else
 				echo -e "${red}Invalid number. Please enter a valid number.${rest}"
