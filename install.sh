@@ -2464,7 +2464,7 @@ EOF
 reverse_cdn() {
 	create_reverse_tls_grpc_singleport_iran() {
 		echo -e "${cyan}============================${rest}"
-		echo -en "${green}Enter the local port: ${rest}"
+		echo -en "${green}Enter the local (${yellow}Connection${green}) port: ${rest}"
 		read -r local_port
 
 		install_waterwall
@@ -2585,13 +2585,11 @@ EOF
 
 	create_reverse_tls_grpc_singleport_kharej() {
 		echo -e "${cyan}============================${rest}"
-		echo -en "${green}Enter Domain: ${rest}"
+		echo -en "${green}Enter your remote domain: ${rest}"
 		read -r domain
-		echo -en "${green}Enter the local(Config) port: ${rest}"
+		echo -en "${green}Enter the local (${yellow}Config${greeen}) port: ${rest}"
 		read -r local_port
-		echo -en "${green}Enter the remote address: ${rest}"
-		read -r remote_address
-		echo -en "${green}Enter the remote port: ${rest}"
+		echo -en "${green}Enter the remote (${yellow}Connection${green}) port: ${rest}"
 		read -r remote_port
 
 		install_waterwall
