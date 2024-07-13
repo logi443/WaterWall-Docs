@@ -407,6 +407,11 @@ simple_direct() {
 		read -r remote_port
 		echo -en "${green}Do you want to Enable PreConnect (yes/no) [${yellow}Default: yes${green}] : ${rest}"
 		read -r PreConnect
+		if [ "$PreConnect" != "no" ]; then
+		    echo -en "${green}Enter Minimum-unused [${yellow}Default: 1${green}]: ${rest}"
+		    read -r min_un
+		    min_un=${min_un:-1}
+		fi
 
 		install_waterwall
 
@@ -421,7 +426,7 @@ simple_direct() {
 	    "name": "precon_client",
 	    "type": "PreConnectClient",
 	    "settings": {
-	        "minimum-unused": 1
+	        "minimum-unused": $min_un
 	    },
 	    "next": "output"
 	},
@@ -471,6 +476,11 @@ EOF
         read -r remote_port
 		echo -en "${green}Do you want to Enable PreConnect (yes/no) [${yellow}Default: yes${green}] : ${rest}"
         read -r PreConnect
+        if [ "$PreConnect" != "no" ]; then
+		    echo -en "${green}Enter Minimum-unused [${yellow}Default: 1${green}]: ${rest}"
+		    read -r min_un
+		    min_un=${min_un:-1}
+		fi
 
 		install_waterwall
 
@@ -485,7 +495,7 @@ EOF
 	    "name": "precon_client",
 	    "type": "PreConnectClient",
 	    "settings": {
-	        "minimum-unused": 1
+	        "minimum-unused": $min_un
 	    },
 	    "next": "output"
 	},
@@ -533,6 +543,11 @@ EOF
         read -r remote_address
 		echo -en "${green}Do you want to Enable PreConnect (yes/no) [${yellow}Default: yes${green}] : ${rest}"
         read -r PreConnect
+        if [ "$PreConnect" != "no" ]; then
+		    echo -en "${green}Enter Minimum-unused [${yellow}Default: 1${green}]: ${rest}"
+		    read -r min_un
+		    min_un=${min_un:-1}
+		fi
 
 		install_waterwall
 
@@ -547,7 +562,7 @@ EOF
 	    "name": "precon_client",
 	    "type": "PreConnectClient",
 	    "settings": {
-	        "minimum-unused": 1
+	        "minimum-unused": $min_un
 	    },
 	    "next": "output"
 	},
@@ -712,6 +727,11 @@ tls() {
 			echo -en "${green}Do you want to Enable PreConnect ? (yes/no) [${yellow}Default: yes${green}]: ${rest}"
 			read -r PreConnect
 			PreConnect=${PreConnect:-yes}
+			if [ "$PreConnect" != "no" ]; then
+			    echo -en "${green}Enter Minimum-unused [${yellow}Default: 1${green}]: ${rest}"
+			    read -r min_un
+			    min_un=${min_un:-1}
+			fi
 			echo -e "${cyan}============================${rest}"
 		fi
 
@@ -775,7 +795,7 @@ EOF
             "name": "precon_client",
             "type": "PreConnectClient",
             "settings": {
-                "minimum-unused": 1
+                "minimum-unused": $min_un
             },
             "next": "sslclient"
         },
@@ -935,6 +955,11 @@ EOF
 			echo -en "${green}Do you want to Enable PreConnect ? (yes/no) [${yellow}Default: yes${green}]: ${rest}"
 			read -r PreConnect
 			PreConnect=${PreConnect:-yes}
+			if [ "$PreConnect" != "no" ]; then
+			    echo -en "${green}Enter Minimum-unused [${yellow}Default: 1${green}]: ${rest}"
+			    read -r min_un
+			    min_un=${min_un:-1}
+			fi
 			echo -e "${cyan}============================${rest}"
 		fi
 
@@ -1007,7 +1032,7 @@ EOF
             "name": "precon_client",
             "type": "PreConnectClient",
             "settings": {
-                "minimum-unused": 1
+                "minimum-unused": $min_un
             },
             "next": "sslclient"
         },
@@ -1272,6 +1297,9 @@ EOF
 		read -r remote_address
 		echo -en "${green}Enter the remote (${yellow}Connection${green}) port: ${rest}"
 		read -r remote_port
+		echo -en "${green}Enter Minimum-unused [${yellow}Default: 16${green}]: ${rest}"
+		read -r min_un
+		min_un=${min_un:-16}
 
 		install_waterwall
 
@@ -1309,7 +1337,7 @@ EOF
             "name": "reverse_client",
             "type": "ReverseClient",
             "settings": {
-                "minimum-unused":16
+                "minimum-unused": $min_un
             },
             "next":  "outbound_to_iran"
         },
@@ -1448,6 +1476,9 @@ EOF
 		read -r remote_address
 		echo -en "${green}Enter the remote port: ${rest}"
 		read -r remote_port
+		echo -en "${green}Enter Minimum-unused [${yellow}Default: 16${green}]: ${rest}"
+		read -r min_un
+		min_un=${min_un:-16}
 
 		install_waterwall
 
@@ -1493,7 +1524,7 @@ EOF
             "name": "reverse_client",
             "type": "ReverseClient",
             "settings": {
-                "minimum-unused": 16
+                "minimum-unused": $min_un
             },
             "next": "pbclient"
         },
@@ -1851,6 +1882,9 @@ EOF
 		read -r sni
 		echo -en "${green}Enter a password (${yellow}same password on both servers${green}): ${rest}"
 		read -r passwd
+		echo -en "${green}Enter Minimum-unused [${yellow}Default: 16${green}]: ${rest}"
+		read -r min_un
+		min_un=${min_un:-16}
 
 		install_waterwall
 
@@ -1896,7 +1930,7 @@ EOF
             "name": "reverse_client",
             "type": "ReverseClient",
             "settings": {
-                "minimum-unused": 16
+                "minimum-unused": $min_un
             },
             "next": "reality_client"
         },
