@@ -261,6 +261,7 @@ ssl_cert_issue() {
 		WebPort=80
 	fi
 	echo -e "${green} will use port:${WebPort} to issue certs,please make sure this port is open...${rest}"
+	echo -e "${cyan}============================================${rest}"
 	# issue the cert
 	~/.acme.sh/acme.sh --set-default-ca --server letsencrypt
 	~/.acme.sh/acme.sh --issue -d "${domain}" --listen-v6 --standalone --httpport "${WebPort}"
