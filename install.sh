@@ -2249,14 +2249,17 @@ trojan_config() {
 	# Function to create direct Trojan configuration
 	create_direct_trojan() {
 		if sudo systemctl is-active --quiet trojan.service; then
-			echo -en "${green}Trojan is already installed\n${rest}"
+		    echo -e "${cyan}============================${rest}"
+			echo -e "${green}Trojan is already installed${rest}"
+			echo -e "${cyan}============================${rest}"
 			return 0
 		else
 			echo -e "${cyan}============================${rest}"
 			echo -en "${green}Enter Your Domain: ${rest}"
 			read -r domain
-			echo -en "${green}Enter the local port: ${rest}"
+			echo -en "${green}Enter a port [${yellow}Default: 443${green}]: ${rest}"
 			read -r local_port
+			local_port=${local_port:-443}
 			echo -en "${green}Enter a name for user: ${rest}"
 			read -r user
 			echo -en "${green}Enter uuid (Password): ${rest}"
