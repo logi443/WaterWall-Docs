@@ -2587,7 +2587,7 @@ EOF
 		echo -e "${cyan}============================${rest}"
 		echo -en "${green}Enter your remote domain: ${rest}"
 		read -r domain
-		echo -en "${green}Enter the local (${yellow}Config${greeen}) port: ${rest}"
+		echo -en "${green}Enter the local (${yellow}Config${green}) port: ${rest}"
 		read -r local_port
 		echo -en "${green}Enter the remote (${yellow}Connection${green}) port: ${rest}"
 		read -r remote_port
