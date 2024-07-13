@@ -3038,7 +3038,7 @@ EOF
 
 	create_reverse_tls_grpc_multiport_hd_kharej() {
 		echo -e "${cyan}============================${rest}"
-		echo -en "${green}Enter Domain: ${rest}"
+		echo -en "${green}Enter your remote domain: ${rest}"
 		read -r domain
 
 		install_waterwall
