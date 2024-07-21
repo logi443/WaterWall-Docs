@@ -3327,7 +3327,7 @@ Description=Waterwall Tunnel Service
 After=network.target
 
 [Service]
-Type=simple
+Type=idle
 User=root
 WorkingDirectory=/root/Waterwall
 ExecStart=/root/Waterwall/Waterwall
@@ -3354,7 +3354,7 @@ Description=Waterwall Trojan Service
 After=network.target
 
 [Service]
-Type=simple
+Type=idle
 User=root
 WorkingDirectory=/root/Waterwall/trojan
 ExecStart=/root/Waterwall/Waterwall
