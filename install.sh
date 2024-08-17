@@ -116,7 +116,7 @@ install_waterwall() {
 
 #===================================
 
-#9
+#10
 # SSL CERTIFICATE
 install_acme() {
 	cd ~
@@ -2249,7 +2249,7 @@ trojan_config() {
 	# Function to create direct Trojan configuration
 	create_direct_trojan() {
 		if sudo systemctl is-active --quiet trojan.service; then
-		    echo -e "${cyan}============================${rest}"
+			echo -e "${cyan}============================${rest}"
 			echo -e "${green}Trojan is already installed${rest}"
 			echo -e "${cyan}============================${rest}"
 			return 0
@@ -2270,8 +2270,6 @@ trojan_config() {
 			echo -en "${green}Enter trojan fallback Address [${yellow}Default: httpforever.com${green}]: ${rest}"
 			read -r trojan_fall
 			trojan_fall=${trojan_fall:-httpforever.com}
-			
-			
 
 			# Install Waterwall
 			install_waterwall
@@ -3233,7 +3231,363 @@ EOF
 	esac
 }
 #===================================
+# Reset Iptables rules
+reset_iptables() {
+	echo -e "${cyan}============================${rest}"
+	echo -en "${green}Press Enter to Reset Iptables rules [required]: ${rest}"
+	read -r
+	echo -e "${green}Resetting iptables rules to default settings...${rest}"
+	echo -e "${cyan}============================${rest}"
+
+	sudo iptables -P INPUT ACCEPT
+	sudo iptables -P FORWARD ACCEPT
+	sudo iptables -P OUTPUT ACCEPT
+
+	sudo iptables -F
+	sudo iptables -X
+	sudo iptables -Z
+	sudo iptables -t nat -F
+	sudo iptables -t nat -X
+	sudo iptables -t mangle -F
+	sudo iptables -t mangle -X
+	sudo iptables -t raw -F
+	sudo iptables -t raw -X
+
+	echo -e "${green}Iptables rules have been successfully reset.${rest}"
+	echo -e "${cyan}============================${rest}"
+}
+
+# My IP
+ip_address=$(curl -s4 ifconfig.me || curl -s6 ifconfig.me)
+
+# Check firewall status
+ufw() {
+	if sudo ufw status | grep -q "Status: active"; then
+		echo -e "${cyan}============================${rest}"
+		echo -e "${green}The firewall is active.${rest}"
+		echo -en "${green}Press Enter to disable it [required]: ${rest}"
+		read -r
+		sudo ufw disable
+	fi
+}
+
 #9
+# Reset Tunnel
+reset_tunnel() {
+	create_reset_tunnel_iran() {
+		echo -e "${cyan}============================${rest}"
+		echo -en "${green}Enter the local IP address $ip_address: ${rest}"
+		read -r server_ip
+		server_ip="${server_ip:-$ip_address}"
+		echo -en "${green}Enter the remote IP address: ${rest}"
+		read -r remote_address
+		ufw
+		reset_iptables
+		install_waterwall
+
+		json=$(
+			cat <<EOF
+{
+  "name": "reset_tunnel_iran",
+  "nodes": [
+    {
+      "name": "input",
+      "type": "TcpListener",
+      "settings": {
+        "address": "0.0.0.0",
+        "port": [
+          23,
+          65535
+        ],
+        "nodelay": true
+      },
+      "next": "output"
+    },
+    {
+      "name": "output",
+      "type": "TcpConnector",
+      "settings": {
+        "nodelay": true,
+        "address": "10.0.0.2",
+        "port": "src_context->port"
+      }
+    },
+    {
+      "name": "tdev",
+      "type": "TunDevice",
+      "settings": {
+        "device-name": "tun0",
+        "device-ip": "10.0.0.1/24"
+      }
+    },
+    {
+      "name": "rdev",
+      "type": "RawDevice",
+      "settings": {
+        "mode": "injector"
+      }
+    },
+    {
+      "name": "cdev",
+      "type": "CaptureDevice",
+      "settings": {
+        "direction": "incoming",
+        "filter-mode": "source-ip",
+        "ip": "$remote_address/32"
+      }
+    },
+    {
+      "name": "route1_receiver",
+      "type": "Layer3Receiver",
+      "settings": {
+        "device": "tdev"
+      },
+      "next": "route1_source_changer"
+    },
+    {
+      "name": "route1_source_changer",
+      "type": "Layer3IpOverrider",
+      "settings": {
+        "mode": "source-ip",
+        "ipv4": "$server_ip"
+      },
+      "next": "tcp_reset_on"
+    },
+    {
+      "name": "tcp_reset_on",
+      "type": "Layer3TcpManipulator",
+      "settings": {
+        "bit-reset": "on"
+      },
+      "next": "route1_dest_setter"
+    },
+    {
+      "name": "route1_dest_setter",
+      "type": "Layer3IpOverrider",
+      "settings": {
+        "mode": "dest-ip",
+        "ipv4": "$remote_address"
+      },
+      "next": "route1_writer"
+    },
+    {
+      "name": "route1_writer",
+      "type": "Layer3Sender",
+      "settings": {
+        "device": "rdev"
+      }
+    },
+    {
+      "name": "route2_receiver",
+      "type": "Layer3Receiver",
+      "settings": {
+        "device": "cdev"
+      },
+      "next": "route2_source_changer"
+    },
+    {
+      "name": "route2_source_changer",
+      "type": "Layer3IpOverrider",
+      "settings": {
+        "mode": "source-ip",
+        "ipv4": "10.0.0.2"
+      },
+      "next": "tcp_reset_off"
+    },
+    {
+      "name": "tcp_reset_off",
+      "type": "Layer3TcpManipulator",
+      "settings": {
+        "bit-reset": "off"
+      },
+      "next": "route2_dest_setter"
+    },
+    {
+      "name": "route2_dest_setter",
+      "type": "Layer3IpOverrider",
+      "settings": {
+        "mode": "dest-ip",
+        "ipv4": "10.0.0.1"
+      },
+      "next": "route2_writer"
+    },
+    {
+      "name": "route2_writer",
+      "type": "Layer3Sender",
+      "settings": {
+        "device": "tdev"
+      }
+    }
+  ]
+}
+EOF
+		)
+		echo "$json" >/root/Waterwall/config.json
+	}
+
+	create_reset_tunnel_kharej() {
+		echo -e "${cyan}============================${rest}"
+		echo -en "${green}Enter the local IP address $ip_address: ${rest}"
+		read -r server_ip
+		server_ip="${server_ip:-$ip_address}"
+		echo -en "${green}Enter the remote IP address: ${rest}"
+		read -r remote_address
+		ufw
+		reset_iptables
+
+		install_waterwall
+
+		json=$(
+			cat <<EOF
+{
+  "name": "reset_tunnel_kharej",
+  "nodes": [
+    {
+      "name": "tdev",
+      "type": "TunDevice",
+      "settings": {
+        "device-name": "tun0",
+        "device-ip": "10.0.0.1/24"
+      }
+    },
+    {
+      "name": "rdev",
+      "type": "RawDevice",
+      "settings": {
+        "mode": "injector"
+      }
+    },
+    {
+      "name": "cdev",
+      "type": "CaptureDevice",
+      "settings": {
+        "direction": "incoming",
+        "filter-mode": "source-ip",
+        "ip": "$remote_address/32"
+      }
+    },
+    {
+      "name": "route1_receiver",
+      "type": "Layer3Receiver",
+      "settings": {
+        "device": "tdev"
+      },
+      "next": "route1_source_changer"
+    },
+    {
+      "name": "route1_source_changer",
+      "type": "Layer3IpOverrider",
+      "settings": {
+        "mode": "source-ip",
+        "ipv4": "$server_ip"
+      },
+      "next": "tcp_reset_on"
+    },
+    {
+      "name": "tcp_reset_on",
+      "type": "Layer3TcpManipulator",
+      "settings": {
+        "bit-reset": "on"
+      },
+      "next": "route1_dest_setter"
+    },
+    {
+      "name": "route1_dest_setter",
+      "type": "Layer3IpOverrider",
+      "settings": {
+        "mode": "dest-ip",
+        "ipv4": "$remote_address"
+      },
+      "next": "route1_writer"
+    },
+    {
+      "name": "route1_writer",
+      "type": "Layer3Sender",
+      "settings": {
+        "device": "rdev"
+      }
+    },
+    {
+      "name": "route2_receiver",
+      "type": "Layer3Receiver",
+      "settings": {
+        "device": "cdev"
+      },
+      "next": "route2_source_changer"
+    },
+    {
+      "name": "route2_source_changer",
+      "type": "Layer3IpOverrider",
+      "settings": {
+        "mode": "source-ip",
+        "ipv4": "10.0.0.2"
+      },
+      "next": "tcp_reset_off"
+    },
+    {
+      "name": "tcp_reset_off",
+      "type": "Layer3TcpManipulator",
+      "settings": {
+        "bit-reset": "off"
+      },
+      "next": "route2_dest_setter"
+    },
+    {
+      "name": "route2_dest_setter",
+      "type": "Layer3IpOverrider",
+      "settings": {
+        "mode": "dest-ip",
+        "ipv4": "10.0.0.1"
+      },
+      "next": "route2_writer"
+    },
+    {
+      "name": "route2_writer",
+      "type": "Layer3Sender",
+      "settings": {
+        "device": "tdev"
+      }
+    }
+  ]
+}
+EOF
+		)
+		echo "$json" >/root/Waterwall/config.json
+	}
+
+	echo -e "${yellow}      *************************************${rest}"
+	echo -e "${yellow}      | ${purple}[1]${green} Reset Tunnel Multiport Iran${yellow}   |${rest}"
+	echo -e "${yellow}      | ${purple}[2]${green} Reset Tunnel Multiport kharej${yellow} |${rest}"
+	echo -e "${yellow}      |${blue}***********************************${yellow}|${rest}"
+	echo -e "${yellow}      | ${purple}[3]${green} Reset Iptables Rules${yellow}          |${rest}"
+	echo -e "${yellow}      |${blue}***********************************${yellow}|${rest}"
+	echo -e "${yellow}      | ${purple} [0] ${green}Back to ${purple}Main Menu${yellow}            |${rest}"
+	echo -e "${yellow}      *************************************${rest}"
+	echo -en "${cyan}      Enter your choice (1-3): ${rest}"
+	read -r choice
+
+	case $choice in
+	1)
+		create_reset_tunnel_iran
+		waterwall_service
+		;;
+	2)
+		create_reset_tunnel_kharej
+		waterwall_service
+		;;
+	3)
+		reset_iptables
+		;;
+	0)
+		main
+		;;
+	*)
+		echo -e "${red}Invalid choice!${rest}"
+		;;
+	esac
+}
+#===================================
+#10
 # Custom Config
 custom() {
 	# Ask user to enter JSON input
@@ -3440,16 +3794,18 @@ main() {
 	echo -e "${yellow}*                                 *${rest}"
 	echo -e "${yellow}*${green} [${cyan}8${green}] Reverse CDN Tunnel${yellow}          *${rest}"
 	echo -e "${yellow}*                                 *${rest}"
-	echo -e "${yellow}*${green} [${cyan}9${green}] Install Custom${yellow}              *${rest}"
+	echo -e "${yellow}*${green} [${cyan}9${green}] Reset Tunnel${yellow}                *${rest}"
 	echo -e "${yellow}*                                 *${rest}"
-	echo -e "${yellow}*${green} [${cyan}10${green}] SSL Certificate Management${yellow} *${rest}"
+	echo -e "${yellow}*${green} [${cyan}10${green}] Install Custom${yellow}             *${rest}"
 	echo -e "${yellow}*                                 *${rest}"
-	echo -e "${yellow}*${green} [${cyan}11${green}] Uninstall Waterwall${yellow}        *${rest}"
+	echo -e "${yellow}*${green} [${cyan}11${green}] SSL Certificate Management${yellow} *${rest}"
+	echo -e "${yellow}*                                 *${rest}"
+	echo -e "${yellow}*${green} [${cyan}12${green}] Uninstall Waterwall${yellow}        *${rest}"
 	echo -e "${yellow}*                                 *${rest}"
 	echo -e "${yellow}*${green}  [${purple}0${green}] ${purple}Exit${yellow}                       *${rest}"
 	echo -e "${yellow}***********************************${rest}"
 
-	echo -en "${cyan}Enter your choice (1-11): ${rest}"
+	echo -en "${cyan}Enter your choice (1-12): ${rest}"
 	read -r choice
 
 	case $choice in
@@ -3485,12 +3841,15 @@ main() {
 		reverse_cdn
 		;;
 	9)
-		custom
+		reset_tunnel
 		;;
 	10)
-		ssl_cert_issue_main
+		custom
 		;;
 	11)
+		ssl_cert_issue_main
+		;;
+	12)
 		uninstall_waterwall
 		;;
 	0)
