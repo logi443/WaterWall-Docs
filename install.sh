@@ -3258,7 +3258,7 @@ reset_iptables() {
 }
 
 # My IP
-ip_address=$(curl -s https://ipinfo.io/ip || curl -s https://api64.ipify.org)
+ip_address=$(hostname -I | awk '{print $1}' || curl -s https://api64.ipify.org)
 
 # Check firewall status
 ufw() {
