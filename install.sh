@@ -51,7 +51,7 @@ check_dependencies() {
 
 # Check and nstall waterwall
 install_waterwall() {
-	LATEST_RELEASE=$(curl --silent "https://api.github.com/repos/radkesvat/WaterWall/releases/latest" | grep -Po '"tag_name": "\K.*?(?=")')
+	LATEST_RELEASE=$(curl --silent "https://github.com/radkesvat/WaterWall/releases/download/v1.32" | grep -Po '"tag_name": "\K.*?(?=")')
 	INSTALL_DIR="/root/Waterwall"
 	FILE_NAME="Waterwall"
 
@@ -72,9 +72,9 @@ install_waterwall() {
 		# Determine the download URL based on the architecture
 		ARCH=$(uname -m)
 		if [ "$ARCH" == "x86_64" ]; then
-			DOWNLOAD_URL="https://github.com/radkesvat/WaterWall/releases/download/${LATEST_RELEASE}/Waterwall-linux-64.zip"
+			DOWNLOAD_URL="https://github.com/radkesvat/WaterWall/releases/download/v1.32/Waterwall-linux-64.zip"
 		elif [ "$ARCH" == "aarch64" ]; then
-			DOWNLOAD_URL="https://github.com/radkesvat/WaterWall/releases/download/${LATEST_RELEASE}/Waterwall-linux-arm64.zip"
+			DOWNLOAD_URL="https://github.com/radkesvat/WaterWall/releases/download/v1.32/Waterwall-linux-arm64.zip"
 		else
 			echo -e "${red}Unsupported architecture: $ARCH${rest}"
 			return 1
